@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+PyJWT==1.6.4
+python_ldap
+requests_ntlm
+requests
+pymongo==3.11.4

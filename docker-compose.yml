@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  gsh-ldap-api:
+    build: .
+    image: gsh-ldap-api:latest
+    container_name: GSH-LDAP-API
+    restart: unless-stopped
+    ports: 
+      - "5051:5000"
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.64.0/24

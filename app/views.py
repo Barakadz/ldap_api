@@ -42,7 +42,7 @@ def logging_mongodb(function):
         collection = db[MONGO_COLLECTIONNAME]
 
         functions = {"authHelpdesk": "helpdesk", "authMyCheckup": "mycheckup", "authMyDocs": "mydocs", "authMyCard": "mycard",
-                     "authHPM": "hpm", "authRyadcom": "ryadcom", "authQRGenerator": "qrgenerator", "authElmedina": "elmedina", "authHpsProd": "HpsProd", "authPumaPrd": "pumaprd", "authMdmCmrs": "mdmcmrs", "authPumaTrn": "pumatrn", "authGshPst": "gshpst", "authPumaLabs": "pumalabs", "authPumaImport": "pumaimport", "authHmdmFt": "hmdmft", "authEHPHCL": "EHPHCL","authGSHATaskManager":"GSHATaskManger"}
+                     "authHPM": "hpm", "authRyadcom": "ryadcom", "authQRGenerator": "qrgenerator", "authElmedina": "elmedina", "authHpsProd": "HpsProd", "authPumaPrd": "pumaprd", "authMdmCmrs": "mdmcmrs", "authPumaTrn": "pumatrn", "authGshPst": "gshpst", "authPumaLabs": "pumalabs", "authPumaImport": "pumaimport", "authHmdmFt": "hmdmft", "authEHPHCL": "EHPHCL","authTask":"TASK"}
         fname = function.__name__
         now = datetime.now()
         year = now.strftime("%Y")
@@ -428,10 +428,10 @@ def authHmdmFt():
         else:
             abort(401)
 
-@app.route("/gshataskmanager/auth", methods=["POST"])
+@app.route("/task/auth", methods=["POST"])
 @logging
 @logging_mongodb
-def authGSHATaskManager():
+def authTask():
     if request.method != "POST":
         abort(405)
     if request.authorization:

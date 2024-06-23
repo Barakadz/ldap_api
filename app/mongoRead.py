@@ -28,7 +28,7 @@ def addApplications():
                  "QRGenerator",
                  "HpsProd",
                  "pumaprd",
-                 "pumalabs","pumaimport","hmdmft","EHPHCL","GSHATaskManger"]
+                 "pumalabs","pumaimport","hmdmft","EHPHCL","TASK"]
     for f in functions:
         post = {"name": f, "code": f.lower()}
         collection.insert_one(post)

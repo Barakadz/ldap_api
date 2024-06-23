@@ -42,7 +42,7 @@ def logging_mongodb(function):
         collection = db[MONGO_COLLECTIONNAME]
 
         functions = {"authHelpdesk": "helpdesk", "authMyCheckup": "mycheckup", "authMyDocs": "mydocs", "authMyCard": "mycard",
-                     "authHPM": "hpm", "authRyadcom": "ryadcom", "authQRGenerator": "qrgenerator", "authElmedina": "elmedina", "authHpsProd": "HpsProd", "authPumaPrd": "pumaprd", "authMdmCmrs": "mdmcmrs", "authPumaTrn": "pumatrn", "authGshPst": "gshpst", "authPumaLabs": "pumalabs", "authPumaImport": "pumaimport", "authHmdmFt": "hmdmft", "authEHPHCL": "EHPHCL"}
+                     "authHPM": "hpm", "authRyadcom": "ryadcom", "authQRGenerator": "qrgenerator", "authElmedina": "elmedina", "authHpsProd": "HpsProd", "authPumaPrd": "pumaprd", "authMdmCmrs": "mdmcmrs", "authPumaTrn": "pumatrn", "authGshPst": "gshpst", "authPumaLabs": "pumalabs", "authPumaImport": "pumaimport", "authHmdmFt": "hmdmft", "authEHPHCL": "EHPHCL","authGSHATaskManager":"GSHATaskManger"}
         fname = function.__name__
         now = datetime.now()
         year = now.strftime("%Y")
@@ -427,6 +427,20 @@ def authHmdmFt():
             return ldap_funcs.isAuthenticatedHmdmFt(username, password)
         else:
             abort(401)
+
+@app.route("/gshataskmanager/auth", methods=["POST"])
+@logging
+@logging_mongodb
+def authGSHATaskManager():
+    if request.method != "POST":
+        abort(405)
+    if request.authorization:
+        username = request.authorization["username"]
+        password = request.authorization["password"]
+        if username and password:
+            return ldap_funcs.isAuthenticatedTask(username, password)
+        else:
+            abort(401)          
 @app.route("/ehphcl/auth", methods=["POST"])
 @logging
 @logging_mongodb

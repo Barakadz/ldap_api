@@ -1889,7 +1889,7 @@ def isAuthenticatedTask(username, password):
         connection.set_option(ldap.OPT_REFERRALS, 0)
         if connection.simple_bind_s(username, password):
             userinfo = getUserInfo(username)
-            if memberOf(username=username, groupname="GSHA-TaskManger"):
+            if memberOf(username=username, groupname="GSHA"):
                 return {"authenticated": True, "userinfo": userinfo}
             return {"authenticated": False, "exception": "Accès refusé"}
 

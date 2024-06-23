@@ -10,13 +10,13 @@ RUN apt-get install -y libsasl2-dev libldap2-dev libssl-dev
 
 WORKDIR /app
 
-#RUN git clone https://oauth2:EUBdUYjPWdh1Fvt7JbUk@gitlab.com/BachirBelkhiri/gsh-ldap-api.git
-RUN git clone https://oauth2:glpat-iyHrBjHHBeq3L9VUox13@gitlab.com/anis.ameziane/gsh-ldap-api.git
+#RUN git clone https://github.com/Barakadz/ldap_api.git
+#RUN git clone https://oauth2:glpat-iyHrBjHHBeq3L9VUox13@gitlab.com/anis.ameziane/gsh-ldap-api.git
 
 WORKDIR /app/gsh-ldap-api
-
+COPY . .
 RUN pip install --upgrade pip
-RUN pip --no-cache-dir install -r requirements
+RUN pip  install -r requirements
 RUN pip --no-cache-dir install uwsgi
 
 ENV TZ=Africa/Algiers

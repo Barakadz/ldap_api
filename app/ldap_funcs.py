@@ -8,7 +8,7 @@ import unicodedata
 
 
 def getReachableLDAP():
-    LDAP_Servers = ["10.20.10.11", "10.20.10.10", "10.10.10.10", "10.30.10.10"]
+    LDAP_Servers = ["10.10.10.10", "10.20.10.10", "10.20.10.13"]
 
     for server in LDAP_Servers:
         try:

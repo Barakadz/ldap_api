@@ -41,7 +41,7 @@ def logging_mongodb(function):
         db = client[MONGO_DBNAME]
         collection = db[MONGO_COLLECTIONNAME]
 
-        functions = {"authHelpdesk": "helpdesk", "authMyCheckup": "mycheckup", "authMyDocs": "mydocs", "authMyCard": "mycard",
+        functions = {"authHelpdesk": "helpdesk", "authMyCheckup": "mycheckup", "authMyDocs": "mydocs", "authMyCard": "mycard","authNewTask":"newtask",
                      "authHPM": "hpm", "authRyadcom": "ryadcom", "authQRGenerator": "qrgenerator", "authElmedina": "elmedina", "authHpsProd": "HpsProd", "authPumaPrd": "pumaprd", "authMdmCmrs": "mdmcmrs", "authPumaTrn": "pumatrn", "authGshPst": "gshpst", "authPumaLabs": "pumalabs", "authPumaImport": "pumaimport", "authHmdmFt": "hmdmft", "authEHPHCL": "EHPHCL","authTask":"TASK"}
         fname = function.__name__
         now = datetime.now()
@@ -238,6 +238,22 @@ def authMyCard():
         if username and password:
 
             return ldap_funcs.isAuthenticatedMyCard(username, password)
+        else:
+            abort(401)
+
+@app.route("/newtask/auth", methods=["POST"])
+@logging
+@logging_mongodb
+def authNewTask():
+    if request.method != "POST":
+        abort(405)
+    if request.authorization:
+        username = request.authorization["username"]
+        password = request.authorization["password"]
+
+        if username and password:
+
+            return ldap_funcs.isAuthenticatedNewTask(username, password)
         else:
             abort(401)
 

@@ -24,6 +24,7 @@ def addApplications():
                  "MyCheckup",
                  "MyDocs",
                  "MyCard",
+                 "newtask",
                  "HPM",
                  "QRGenerator",
                  "HpsProd",

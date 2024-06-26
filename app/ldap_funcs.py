@@ -1305,7 +1305,32 @@ def isAuthenticatedMyCard(username, password):
         else:
             exception = error.args[0]["desc"]
         return {"authenticated": False, "exception": exception}
+def isAuthenticatedNewTask(username, password):
 
+    ldapserver = getReachableLDAP()
+    connection = ldap.initialize(f'ldap://{ldapserver}')
+
+    if not username or not password:
+        {"response": False, "exception": "username or password not provided"}
+
+    try:
+        connection.protocol_version = ldap.VERSION3
+        connection.set_option(ldap.OPT_REFERRALS, 0)
+        if connection.simple_bind_s(username, password):
+            userinfo = getUserInfo(username)
+
+            if memberOf(username=username, groupname="GSHA-NEW"):
+                return {"authenticated": True, "userinfo": userinfo}
+            return {"authenticated": False, "exception": "Accès refusé"}
+
+    except Exception as error:
+        if error.args[0]["desc"] == "Invalid credentials":
+            exception = "Identifiants incorrects"
+        elif error.args[0]["desc"] == "Can't contact LDAP server":
+            exception = "Connexion au serveur AD impossible"
+        else:
+            exception = error.args[0]["desc"]
+        return {"authenticated": False, "exception": exception}
 
 def isAuthenticatedHPM(username, password):
 
@@ -1877,6 +1902,10 @@ def isAuthenticatedHmdmFt(username, password):
         else:
             exception = error.args[0]["desc"]
         return {"authenticated": False, "exception": exception}
+
+
+
+
 
 def isAuthenticatedTask(username, password):
 
